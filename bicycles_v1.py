@@ -1,4 +1,3 @@
-#got rid of dependecies in functions like "my_shop" in offer()
 import random
 
 class Bicycle(object): #new class of bike
@@ -30,16 +29,16 @@ class Shop(object): #new class of shops
 
     def calc_profit(self): #calculating profit
         sell_profit = 0
-        for item in self.sold_bikes:
-            sell_profit = int((item.cost*self.margin)/100 - self.expenses)
+        for bike in self.sold_bikes:
+            sell_profit = int((bike.cost*self.margin)/100 - self.expenses)
             self.profit += sell_profit
         print("Shop's profit is $" + str(self.profit))
         return self.profit
         
     def display(self):
-        print(self.shop_name + "'s inventory: ")
-        for item in self.inventory:
-            print(item.model + ": " + "weight(gr) - " + str(item.weight) + ", price($) - " + str(self.price(item)))
+        print(my_shop.shop_name + "'s inventory: ")
+        for bike in my_shop.inventory:
+            print(bike.model + ": " + "weight(gr) - " + str(bike.weight) + ", price($) - " + str(my_shop.price(bike)))
         
 my_shop = Shop("Velo4u", [myvelo, panda, ferrari, fiat, express, city], 10) #new instance
         
@@ -48,37 +47,36 @@ class Customer(object): #new class of customers
         self.name = name
         self.budget = budget
         
-    def offer(self, shop):
+    def offer(self):
         offered_bikes = []
-        for item in shop.inventory:
-            if self.budget >= shop.price(item):
+        for item in my_shop.inventory:
+            if self.budget >= my_shop.price(item):
                 offered_bikes.append(item.model)
         print(self.name + ", this is the choice you have: " + ", ".join(offered_bikes))
         return offered_bikes
 
-    def sell(self, offered_bikes, shop):
+    def sell(self, offered_bikes):
         choice = random.choice(offered_bikes)
         budget_left = 0
         print("Ok, I'll go for this one: " + choice)
-        for item in shop.inventory:
-            if choice == item.model:
-                budget_left = self.budget - shop.price(item)
-                shop.inventory.remove(item)
-                shop.sold_bikes.append(item)
+        for bike in my_shop.inventory:
+            if choice == bike.model:
+                budget_left = self.budget - my_shop.price(bike)
+                my_shop.inventory.remove(bike)
+                my_shop.sold_bikes.append(bike)
         print(self.name + ", enjoy your new bike! You still have $" + str(budget_left) + " left in your budget. Fancy some accessories?")
-
+        
 anna = Customer("Anna", 200) #instance 1
 ruben = Customer("Ruben", 500) #instance 2
 maxim = Customer("Maxim", 1000) #instance 3
 
 if __name__ == "__main__":
     my_shop.display()
-    offered_bikes = anna.offer(my_shop)
-    anna.sell(offered_bikes, my_shop)
-    offered_bikes = ruben.offer(my_shop)
-    ruben.sell(offered_bikes, my_shop)
-    offered_bikes = maxim.offer(my_shop)
-    maxim.sell(offered_bikes, my_shop)
+    offered_bikes = anna.offer()
+    anna.sell(offered_bikes)
+    offered_bikes = ruben.offer()
+    ruben.sell(offered_bikes)
+    offered_bikes = maxim.offer()
+    maxim.sell(offered_bikes)
     my_shop.display()
     my_shop.calc_profit()
-    

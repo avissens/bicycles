@@ -10,18 +10,17 @@ city = Bicycle("city-1000", 100, 900) #bike instance 6
 bikes = [myvelo, panda, ferrari, fiat, express, city]
 
 my_shop = Shop("Velo4u", bikes, 10) #shop instance
+shops = [my_shop]
 
 anna = Customer("Anna", 200) #customer instance 1
 ruben = Customer("Ruben", 500) #customer instance 2
 maxim = Customer("Maxim", 1000) #customer instance 3
 customers = [anna, ruben, maxim]
 
-def display(self):
-        print(self.shop_name + "'s inventory: ")
-        for bike in self.inventory:
-            print(bike.model + ": " + "weight(gr) - " + str(bike.weight) + ", price($) - " + str(self.price(bike)))
 
-print(display(my_shop))
+print(my_shop.shop_name + "'s inventory: ")
+for item in my_shop.inventory:
+    print(item.model + ": " + "weight(gr) - " + str(item.weight) + ", price($) - " + str(my_shop.price(item)))
 
 def offer(self):
         offered_bikes = []
@@ -40,13 +39,16 @@ def sell(self, offered_bikes):
                 budget_left = self.budget - my_shop.price(bike)
                 my_shop.inventory.remove(bike)
                 my_shop.sold_bikes.append(bike)
-        print(self.name + ", enjoy your new bike! You still have $" + str(budget_left) + " left in your budget. Fancy some accessories?")
-
+        return budget_left
+        
 for customer in customers:
     offered_bikes = offer(customer)
-    print(sell(customer, offered_bikes))
+    budget_left = sell(customer, offered_bikes)
+    print(customer.name + ", enjoy your new bike! You still have $" + str(budget_left) + " left in your budget. Fancy some accessories?")
 
-print(display(my_shop))
+print(my_shop.shop_name + "'s inventory: ")
+for item in my_shop.inventory:
+    print(item.model + ": " + "weight(gr) - " + str(item.weight) + ", price($) - " + str(my_shop.price(item)))
 
 def calc_profit(self): #calculating profit
         sell_profit = 0

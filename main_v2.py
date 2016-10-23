@@ -1,4 +1,4 @@
-from bicycles import Bicycle, Shop, Customer
+from bicycles_v2 import Bicycle, Shop, Customer
 
 myvelo = Bicycle("myvelo-333", 500, 120) #bike instance 1
 panda = Bicycle("panda-444", 400, 350) #bike instance 2
@@ -20,6 +20,7 @@ if __name__ == "__main__":
     my_shop.display()
     for customer in customers:
         offered_bikes = customer.offer(my_shop)
-        print(customer.sell(offered_bikes))
+        budget_left = customer.sell(offered_bikes, my_shop)
+        print(customer.name + ", enjoy your new bike! You still have $" + str(budget_left) + " left in your budget. Fancy some accessories?")
     my_shop.display()
     my_shop.calc_profit()

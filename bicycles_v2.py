@@ -55,8 +55,7 @@ class Customer(object): #new class of customers
                 budget_left = self.budget - shop.price(item)
                 shop.inventory.remove(item)
                 shop.sold_bikes.append(item)
-        print(self.name + ", enjoy your new bike! You still have $" + str(budget_left) + " left in your budget. Fancy some accessories?")
-
+        return budget_left
 
 
     
